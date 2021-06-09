@@ -1,0 +1,11 @@
+{:paths ["src" "resources"]
+ 
+ :deps {org.clojure/clojure                     {:mvn/version "1.10.1"}
+        com.google.cloud/google-cloud-datastore {:mvn/version "1.106.5-sp.1"}}
+ 
+ :aliases {:dev 
+           {}
+           
+           :test 
+           {:extra-deps {lambdaisland/kaocha    {:mvn/version "1.0.861"}
+                         org.clojure/test.check {:mvn/version "0.10.0-alpha4"}}}}}
