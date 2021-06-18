@@ -57,7 +57,7 @@
 
 (defn create-filter
   [property-map]
-  (if (> (count (property-map) 1))
+  (if (> (count (get property-map 1)))
     (create-composite-filter property-map)
     (assign-property-filter (first property-map))))
 
@@ -65,23 +65,28 @@
   [query-string]
   (.build (Query/newGqlQueryBuilder query-string)))
 
-(defn create-query
-  [kind property-map]
-  (let [query (.setKind (Query/newEntityQueryBuilder) kind)
-        query-filter (create-filter property-map)]
-    (.setFilter query query-filter)
-    (.build query))
-  [query-string]
-  (create-gql-query query-string))
+(defn create-query  
+  ([kind property-map]
+   (let [query (.setKind (Query/newEntityQueryBuilder) kind)
+         query-filter (create-filter property-map)]
+     (.setFilter query query-filter)
+     (.build query)))  
+  ([query-string]
+   (create-gql-query query-string)))
 
 (defn run-query
-  "Run a query against a given datastore"
-  [datastore kind property-map]
-  (let [query (create-query kind property-map)]
-    (.run datastore query))
-  [datastore query-string]
-  (let [query (create-query query-string)]
-    (.run datastore query)))
+  "Run a query against a given datastore"  
+  ([datastore kind property-map]
+   (let [query (create-query kind property-map)]
+     (.run datastore query)))
+  ([datastore query-string]
+   (let [query (create-query query-string)]
+     (.run datastore query))))
+
+(defn upsert-entity
+  "Upsert an entity to Firestore"
+  [datastore entity]
+  (.put datastore entity))
 
 ;; (defn verify-entity-existence
 ;;   "Verify is an entity exists in a database"
@@ -89,8 +94,5 @@
 ;;   (let [result (run-query datastore kind property-map)]
 ;;     (.hasNext result)))
 
-;; (defn upsert-entity
-;;   "Upsert an entity to Firestore"
-;;   [datastore entity]
-;;   (.put datastore entity))
+
 
