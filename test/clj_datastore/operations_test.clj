@@ -7,7 +7,8 @@
                                        Key
                                        Query
                                        StructuredQuery
-                                       StructuredQuery$PropertyFilter)))
+                                       StructuredQuery$PropertyFilter
+                                       StructuredQuery$CompositeFilter)))
 
 (def test-datastore (.getService (DatastoreOptions/getDefaultInstance)))
 (def test-kind "testkind")

@@ -35,7 +35,6 @@
 
 (defn assign-property-filter  
   ([{key :key value :value type :type}]
-   ;;(println type)
    (case type
      "equal"                 (StructuredQuery$PropertyFilter/eq key value)
      "less-than"             (StructuredQuery$PropertyFilter/lt key value)
@@ -47,15 +46,15 @@
      "is-null"      (StructuredQuery$PropertyFilter/isNull key)
      "has-ancestor" (StructuredQuery$PropertyFilter/hasAncestor key))))
 
-(defn- transform-map-filter-seq
+(defn transform-map-filter-seq
   [map-filter-seq]
-  (loop [i 0
-         result (list (assign-property-filter (get map-filter-seq i)))]
-    (when (= i (count map-filter-seq))
-      result)
-    (recur 
-     (inc i)
-     (conj result (assign-property-filter (get map-filter-seq i))))))
+  (loop [result (list)
+         i 0]
+    (if (< i (count map-filter-seq))
+      (recur 
+       (conj result (assign-property-filter (nth map-filter-seq i)))
+       (inc i))
+      (into-array result))))
 
 (defn create-composite-filter
   [[first-map-filter & other-map-filters]]
