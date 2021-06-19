@@ -24,4 +24,14 @@
           expected-type com.google.cloud.datastore.QueryResults
           expected-value "Hello"]
       (is (isa? (type test-value) expected-type))
+      (is (=  (.get (.get (.getProperties (.next test-value)) "property1")) expected-value))))
+  (testing "Integration test to run a composite filter query against a datastore and verify its type and values correctness"
+    (let [ds test-datastore
+          input-kind integration-test-kind
+          property-map [{:key "property2" :value "World" :type "equal"}
+                        {:key "quantity" :value 32 :type "equal"}]
+          test-value (run-query ds input-kind property-map)
+          expected-type com.google.cloud.datastore.QueryResults
+          expected-value "Hello"]
+      (is (isa? (type test-value) expected-type))
       (is (=  (.get (.get (.getProperties (.next test-value)) "property1")) expected-value)))))
