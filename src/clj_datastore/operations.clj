@@ -33,23 +33,34 @@
    (let [key (.newKey (.setKind (.newKeyFactory datastore) kind))]
      (.build (map-to-entity-builder entity-map key)))))
 
-(defn assign-property-filter
-  [{key :key value :value type :type}]
-  (case type
-    :equal                 (StructuredQuery$PropertyFilter/eq key value)
-    :less-than             (StructuredQuery$PropertyFilter/lt key value)
-    :less-than-or-equal    (StructuredQuery$PropertyFilter/le key value)
-    :greater-than          (StructuredQuery$PropertyFilter/gt key value)
-    :greater-than-or-equal (StructuredQuery$PropertyFilter/ge key value))
-  [key type]
-  (case type
-    :is-null      (StructuredQuery$PropertyFilter/isNull key)
-    :has-ancestor (StructuredQuery$PropertyFilter/hasAncestor key)))
+(defn assign-property-filter  
+  ([{key :key value :value type :type}]
+   ;;(println type)
+   (case type
+     "equal"                 (StructuredQuery$PropertyFilter/eq key value)
+     "less-than"             (StructuredQuery$PropertyFilter/lt key value)
+     "less-than-or-equal"    (StructuredQuery$PropertyFilter/le key value)
+     "greater-than"          (StructuredQuery$PropertyFilter/gt key value)
+     "greater-than-or-equal" (StructuredQuery$PropertyFilter/ge key value)))  
+  ([key type]
+   (case type
+     "is-null"      (StructuredQuery$PropertyFilter/isNull key)
+     "has-ancestor" (StructuredQuery$PropertyFilter/hasAncestor key))))
+
+(defn- transform-map-filter-seq
+  [map-filter-seq]
+  (loop [i 0
+         result (list (assign-property-filter (get map-filter-seq i)))]
+    (when (= i (count map-filter-seq))
+      result)
+    (recur 
+     (inc i)
+     (conj result (assign-property-filter (get map-filter-seq i))))))
 
 (defn create-composite-filter
-  [first-map-filter & other-map-filters]
+  [[first-map-filter & other-map-filters]]
   (let [first-property-filter (assign-property-filter first-map-filter)
-        other-property-filters (map assign-property-filter other-map-filters)
+        other-property-filters (transform-map-filter-seq other-map-filters)
         result-composite-filter (StructuredQuery$CompositeFilter/and 
                                  first-property-filter, 
                                  other-property-filters)]
@@ -57,7 +68,7 @@
 
 (defn create-filter
   [property-map]
-  (if (> (count (get property-map 1)))
+  (if (> (count property-map) 1)
     (create-composite-filter property-map)
     (assign-property-filter (first property-map))))
 
