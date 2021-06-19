@@ -33,23 +33,33 @@
    (let [key (.newKey (.setKind (.newKeyFactory datastore) kind))]
      (.build (map-to-entity-builder entity-map key)))))
 
-(defn assign-property-filter
-  [{key :key value :value type :type}]
-  (case type
-    :equal                 (StructuredQuery$PropertyFilter/eq key value)
-    :less-than             (StructuredQuery$PropertyFilter/lt key value)
-    :less-than-or-equal    (StructuredQuery$PropertyFilter/le key value)
-    :greater-than          (StructuredQuery$PropertyFilter/gt key value)
-    :greater-than-or-equal (StructuredQuery$PropertyFilter/ge key value))
-  [key type]
-  (case type
-    :is-null      (StructuredQuery$PropertyFilter/isNull key)
-    :has-ancestor (StructuredQuery$PropertyFilter/hasAncestor key)))
+(defn assign-property-filter  
+  ([{key :key value :value type :type}]
+   (case type
+     "equal"                 (StructuredQuery$PropertyFilter/eq key value)
+     "less-than"             (StructuredQuery$PropertyFilter/lt key value)
+     "less-than-or-equal"    (StructuredQuery$PropertyFilter/le key value)
+     "greater-than"          (StructuredQuery$PropertyFilter/gt key value)
+     "greater-than-or-equal" (StructuredQuery$PropertyFilter/ge key value)))  
+  ([key type]
+   (case type
+     "is-null"      (StructuredQuery$PropertyFilter/isNull key)
+     "has-ancestor" (StructuredQuery$PropertyFilter/hasAncestor key))))
+
+(defn transform-map-filter-seq
+  [map-filter-seq]
+  (loop [result (list)
+         i 0]
+    (if (< i (count map-filter-seq))
+      (recur 
+       (conj result (assign-property-filter (nth map-filter-seq i)))
+       (inc i))
+      (into-array result))))
 
 (defn create-composite-filter
-  [first-map-filter & other-map-filters]
+  [[first-map-filter & other-map-filters]]
   (let [first-property-filter (assign-property-filter first-map-filter)
-        other-property-filters (map assign-property-filter other-map-filters)
+        other-property-filters (transform-map-filter-seq other-map-filters)
         result-composite-filter (StructuredQuery$CompositeFilter/and 
                                  first-property-filter, 
                                  other-property-filters)]
@@ -57,7 +67,7 @@
 
 (defn create-filter
   [property-map]
-  (if (> (count (property-map) 1))
+  (if (> (count property-map) 1)
     (create-composite-filter property-map)
     (assign-property-filter (first property-map))))
 
@@ -65,23 +75,28 @@
   [query-string]
   (.build (Query/newGqlQueryBuilder query-string)))
 
-(defn create-query
-  [kind property-map]
-  (let [query (.setKind (Query/newEntityQueryBuilder) kind)
-        query-filter (create-filter property-map)]
-    (.setFilter query query-filter)
-    (.build query))
-  [query-string]
-  (create-gql-query query-string))
+(defn create-query  
+  ([kind property-map]
+   (let [query (.setKind (Query/newEntityQueryBuilder) kind)
+         query-filter (create-filter property-map)]
+     (.setFilter query query-filter)
+     (.build query)))  
+  ([query-string]
+   (create-gql-query query-string)))
 
 (defn run-query
-  "Run a query against a given datastore"
-  [datastore kind property-map]
-  (let [query (create-query kind property-map)]
-    (.run datastore query))
-  [datastore query-string]
-  (let [query (create-query query-string)]
-    (.run datastore query)))
+  "Run a query against a given datastore"  
+  ([datastore kind property-map]
+   (let [query (create-query kind property-map)]
+     (.run datastore query)))
+  ([datastore query-string]
+   (let [query (create-query query-string)]
+     (.run datastore query))))
+
+(defn upsert-entity
+  "Upsert an entity to Firestore"
+  [datastore entity]
+  (.put datastore entity))
 
 ;; (defn verify-entity-existence
 ;;   "Verify is an entity exists in a database"
@@ -89,8 +104,5 @@
 ;;   (let [result (run-query datastore kind property-map)]
 ;;     (.hasNext result)))
 
-;; (defn upsert-entity
-;;   "Upsert an entity to Firestore"
-;;   [datastore entity]
-;;   (.put datastore entity))
+
 
