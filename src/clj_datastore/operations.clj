@@ -41,25 +41,16 @@
      "less-than-or-equal"    (StructuredQuery$PropertyFilter/le key value)
      "greater-than"          (StructuredQuery$PropertyFilter/gt key value)
      "greater-than-or-equal" (StructuredQuery$PropertyFilter/ge key value)))  
-  ([key type]
-   (case type
-     "is-null"      (StructuredQuery$PropertyFilter/isNull key)
-     "has-ancestor" (StructuredQuery$PropertyFilter/hasAncestor key))))
-
-(defn transform-map-filter-seq
-  [map-filter-seq]
-  (loop [result (list)
-         i 0]
-    (if (< i (count map-filter-seq))
-      (recur 
-       (conj result (assign-property-filter (nth map-filter-seq i)))
-       (inc i))
-      (into-array result))))
+  ([literal-key type datastore kind]
+   (let [key (.newKey (.setKind (.newKeyFactory datastore) kind) literal-key)]
+     (case type
+       "is-null"      (StructuredQuery$PropertyFilter/isNull literal-key)
+       "has-ancestor" (StructuredQuery$PropertyFilter/hasAncestor key)))))
 
 (defn create-composite-filter
   [[first-map-filter & other-map-filters]]
   (let [first-property-filter (assign-property-filter first-map-filter)
-        other-property-filters (transform-map-filter-seq other-map-filters)
+        other-property-filters (into-array (map assign-property-filter other-map-filters))
         result-composite-filter (StructuredQuery$CompositeFilter/and 
                                  first-property-filter, 
                                  other-property-filters)]
@@ -75,7 +66,7 @@
   [query-string]
   (.build (Query/newGqlQueryBuilder query-string)))
 
-(defn create-query  
+(defn create-query
   ([kind property-map]
    (let [query (.setKind (Query/newEntityQueryBuilder) kind)
          query-filter (create-filter property-map)]
@@ -97,12 +88,3 @@
   "Upsert an entity to Firestore"
   [datastore entity]
   (.put datastore entity))
-
-;; (defn verify-entity-existence
-;;   "Verify is an entity exists in a database"
-;;   [datastore kind property-map]
-;;   (let [result (run-query datastore kind property-map)]
-;;     (.hasNext result)))
-
-
-
