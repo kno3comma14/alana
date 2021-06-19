@@ -1,4 +1,4 @@
-(ns clj-datastore.operations-test
+(ns clj-datastore.unit.operations-test
   (:require [clojure.test :refer :all]
             [clj-datastore.operations :refer :all])
   (:import (com.google.cloud.datastore Datastore
@@ -58,32 +58,3 @@
            test-value (create-query input-kind input-map-vector)
            expected-type com.google.cloud.datastore.StructuredQuery]
        (isa? (type test-value) expected-type)))))
-
-;; (deftest run-query-test
-;;   (testing "Integration test to run a query against a datastore and verify its type and values correctness"
-;;     (let [ds test-datastore
-;;           input-kind integration-test-kind
-;;           property-map {:email "enyert.vinas@gmail.com"}
-;;           test-value (run-query ds input-kind property-map)
-;;           expected-type com.google.cloud.datastore.QueryResults
-;;           expected-value "enyert.vinas@gmail.com"]
-;;       (is (isa? (type test-value) expected-type))
-;;       (is (=  (.get (.get (.getProperties (.next test-value)) "email")) expected-value)))))
-
-;; (deftest verify-entity-existence-test
-;;   (testing "The verification of the existence of an Entity"
-;;     (is
-;;      (let [ds test-datastore
-;;           input-kind integration-test-kind
-;;           property-map {:email "enyert.vinas@gmail.com"}
-;;           test-value (verify-entity-existence ds input-kind property-map)          
-;;           expected-value true]
-;;        (= test-value expected-value))))
-;;   (testing "The verification of the absence of an Entity"
-;;     (is
-;;      (let [ds test-datastore
-;;           input-kind integration-test-kind
-;;           property-map {:email "enyert.vinas.no@gmail.com"}
-;;           test-value (verify-entity-existence ds input-kind property-map)          
-;;           expected-value false]
-;;        (= test-value expected-value)))))

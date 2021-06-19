@@ -1,2 +1,5 @@
 #kaocha/v1
-{}
+{:tests [{:id         :unit
+          :test-paths ["test/clj_datastore/unit"]}
+         {:id         :integration
+          :test-paths ["test/clj_datastore/integration"]}]}

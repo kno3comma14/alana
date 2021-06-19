@@ -97,12 +97,3 @@
   "Upsert an entity to Firestore"
   [datastore entity]
   (.put datastore entity))
-
-;; (defn verify-entity-existence
-;;   "Verify is an entity exists in a database"
-;;   [datastore kind property-map]
-;;   (let [result (run-query datastore kind property-map)]
-;;     (.hasNext result)))
-
-
-
