@@ -1,6 +1,6 @@
 # clj-datastore
 
-_Google Datastore support for Clojure_
+_Clojure support for Google Datastore_
 
 ## tl;dr
 
@@ -9,13 +9,24 @@ to be used with clojure datatypes.
 
 ## Project status
 
-TODO
+clj-datastore is alpha software at the moment, this doesn't mean that the project cannot be used or it has
+poor quality, it does mean that probably will exist changes over the source code that could break the API.
 
 ## Installation
 
 TODO
 
 ## Usage
+
+### Creating entities
+
+TODO
+
+### Creating queries
+
+TODO
+
+### Upserting Entities
 
 TODO
 
