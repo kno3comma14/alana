@@ -33,19 +33,20 @@
    (let [key (.newKey (.setKind (.newKeyFactory datastore) kind))]
      (.build (map-to-entity-builder entity-map key)))))
 
-(defn assign-property-filter  
-  ([{key :key value :value type :type}]
-   (case type
+(defn assign-property-filter
+  [{key :key value :value type :type datastore :datastore kind :kind}]
+  (if (and (nil? datastore) (nil? kind))
+    (case type
      "equal"                 (StructuredQuery$PropertyFilter/eq key value)
      "less-than"             (StructuredQuery$PropertyFilter/lt key value)
      "less-than-or-equal"    (StructuredQuery$PropertyFilter/le key value)
      "greater-than"          (StructuredQuery$PropertyFilter/gt key value)
-     "greater-than-or-equal" (StructuredQuery$PropertyFilter/ge key value)))  
-  ([literal-key type datastore kind]
-   (let [key (.newKey (.setKind (.newKeyFactory datastore) kind) literal-key)]
-     (case type
-       "is-null"      (StructuredQuery$PropertyFilter/isNull literal-key)
-       "has-ancestor" (StructuredQuery$PropertyFilter/hasAncestor key)))))
+     "greater-than-or-equal" (StructuredQuery$PropertyFilter/ge key value))
+    (when (nil? value)
+      (let [internal-key (.newKey (.setKind (.newKeyFactory datastore) kind) key)]
+       (case type
+       "is-null"      (StructuredQuery$PropertyFilter/isNull key)
+       "has-ancestor" (StructuredQuery$PropertyFilter/hasAncestor internal-key))))))
 
 (defn create-composite-filter
   [[first-map-filter & other-map-filters]]
