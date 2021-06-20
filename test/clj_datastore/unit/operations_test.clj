@@ -38,6 +38,7 @@
            input-datastore test-datastore
            test-value (create-entity input-datastore input-kind input-map)
            expected-type com.google.cloud.datastore.FullEntity]
+       (println test-value)
        (and (isa? (type test-value) expected-type)
             (= (.get (.getValue test-value (name :property1))) "A")
             (= (.get (.getValue test-value (name :property2))) "B"))))))
@@ -70,15 +71,13 @@
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
     (is
-     (let [input-key "property1"
-           input-type "is-null"
-           test-value (assign-property-filter input-key input-type test-datastore test-kind)
+     (let [property-map {:key "property1" :type "is-null" :datastore test-datastore :kind test-kind}
+           test-value (assign-property-filter property-map)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
     (is
-     (let [input-key "property1"
-           input-type "has-ancestor"
-           test-value (assign-property-filter input-key input-type test-datastore test-kind)
+     (let [property-map {:key "property1" :type "has-ancestor" :datastore test-datastore :kind test-kind}
+           test-value (assign-property-filter property-map)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))))
 
