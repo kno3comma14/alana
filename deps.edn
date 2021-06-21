@@ -1,6 +1,6 @@
 {:paths ["src" "test" "resources"]
  
- :deps {org.clojure/clojure                     {:mvn/version "1.10.1"}
+ :deps {org.clojure/clojure                     {:mvn/version "1.10.3"}
         com.google.cloud/google-cloud-datastore {:mvn/version "1.106.5-sp.1"}
         metosin/malli                           {:mvn/version "0.5.1"}}
  

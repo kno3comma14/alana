@@ -10,7 +10,14 @@
                                        StructuredQuery$PropertyFilter
                                        StructuredQuery$CompositeFilter)))
 
-(def test-datastore (.getService (DatastoreOptions/getDefaultInstance)))
+;;(def test-datastore (.getService (DatastoreOptions/getDefaultInstance)))
+(def test-datastore (.getService (.build (.setServiceRpcFactory 
+                              (.setHost 
+                               (.setProjectId 
+                                (DatastoreOptions/newBuilder) 
+                                "project-id") 
+                               "http://localhost:8080") 
+                              nil))))
 (def test-kind "testkind")
 (def test-key (.newKey (.setKind (.newKeyFactory test-datastore) test-kind)))
 (def integration-test-kind "User")
@@ -23,12 +30,6 @@
            test-value (map-to-entity-builder input-map input-key)
            expected-type com.google.cloud.datastore.FullEntity$Builder]
        (isa? (type test-value) expected-type)))))
-
-(deftest create-datastore-test
-  (testing "The creation of the correct datastore instance type"
-    (is 
-     (let [test-value (create-datastore)]
-       (isa? (type test-value) Datastore)))))
 
 (deftest create-entity-test
   (testing "The creation of the correct entity instance type and well defined structure"
