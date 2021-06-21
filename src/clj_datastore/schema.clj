@@ -12,11 +12,11 @@
 
 (defn is-type?
   [target]
-  (let [target-type-values ["equal"
-                            "less-than"
-                            "less-than-or-equal"
-                            "greater-than"
-                            "greater-than-or-equal"
+  (let [target-type-values ["="
+                            "<"
+                            "<="
+                            ">"
+                            ">="
                             "is-null"
                             "has-ancestor"]]
     (not (nil? (some #(= target %) target-type-values)))))
@@ -58,11 +58,11 @@
     [:fn {:error/message (:invalid-generic error-messages)
           :error/path [:type]}
      '(fn [{:keys type value datastore kind}]
-        (let [generic-filter-types ["equal"
-                                    "less-than"
-                                    "less-than-or-equal"
-                                    "greater-than"
-                                    "greater-than-or-equal"]]
+        (let [generic-filter-types ["="
+                                    "<"
+                                    "<="
+                                    ">"
+                                    ">="]]
           (and (not (nil? (some #(= type %) generic-filter-types)))
                (nil? datastore)
                (nil? kind)
