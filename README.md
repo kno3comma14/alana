@@ -2,7 +2,7 @@
 
 _Clojure support for Google Datastore_
 
-https://github.com/kno3comma14/clj-datastore/actions/workflows/clojure.yml/badge.svg
+[![Github]https://github.com/kno3comma14/clj-datastore/actions/workflows/clojure.yml/badge.svg?style=svg]
 
 ## tl;dr
 
