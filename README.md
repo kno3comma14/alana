@@ -2,6 +2,8 @@
 
 _Clojure support for Google Datastore_
 
+https://github.com/kno3comma14/clj-datastore/actions/workflows/clojure.yml/badge.svg
+
 ## tl;dr
 
 clj-datastore is a library written on top of [java-datastore](https://github.com/googleapis/java-datastore)
