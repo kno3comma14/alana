@@ -10,7 +10,14 @@
                                        StructuredQuery$PropertyFilter
                                        StructuredQuery$CompositeFilter)))
 
-(def test-datastore (.getService (DatastoreOptions/getDefaultInstance)))
+;;(def test-datastore (.getService (DatastoreOptions/getDefaultInstance)))
+(def test-datastore (.getService (.build (.setServiceRpcFactory 
+                              (.setHost 
+                               (.setProjectId 
+                                (DatastoreOptions/newBuilder) 
+                                "project-id") 
+                               "http://localhost:8080") 
+                              nil))))
 (def test-kind "testkind")
 (def test-key (.newKey (.setKind (.newKeyFactory test-datastore) test-kind)))
 (def integration-test-kind "User")
