@@ -19,7 +19,7 @@ jobs:
         curl -O https://download.clojure.org/install/linux-install-1.10.3.855.sh
         sudo chmod +x linux-install-1.10.3.855.sh
         sudo ./linux-install-1.10.3.855.sh
-        export GCP_PROJECT=amplified-bee-313606
+        export DATASTORE_PROJECT_ID=amplified-bee-313606
         clj -P
     - name: Run tests
       run: ./bin/kaocha unit
