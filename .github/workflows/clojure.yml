@@ -1,0 +1,26 @@
+name: Clojure CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+    - with:
+        clojure_url: https://download.clojure.org/install/linux-install-1.10.3.855.sh
+      run: |
+        apt-get install -y bash curl rlwrap openjdk-11-jdk
+        curl -O $INPUT_CLOJURE_URL
+        chmod +x linux-install-1.10.3.855.sh
+        ./linux-install-1.10.3.855.sh
+        clj -P
+    - name: Run tests
+      run: ./bin/kaocha unit
