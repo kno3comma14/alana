@@ -46,27 +46,27 @@
 (deftest assign-property-filter-test
   (testing "The correct property filter creation"
     (is
-     (let [property-map {:key "property1" :value "A" :type "equal"}
+     (let [property-map {:key "property1" :value "A" :type "="}
            test-value (assign-property-filter property-map)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
     (is
-     (let [property-map {:key "property1" :value 1 :type "less-than"}
+     (let [property-map {:key "property1" :value 1 :type "<"}
            test-value (assign-property-filter property-map)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
     (is
-     (let [property-map {:key "property1" :value 2 :type "less-than-or-equal"}
+     (let [property-map {:key "property1" :value 2 :type "<="}
            test-value (assign-property-filter property-map)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
     (is
-     (let [property-map {:key "property1" :value 3 :type "greater-than"}
+     (let [property-map {:key "property1" :value 3 :type ">"}
            test-value (assign-property-filter property-map)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
     (is
-     (let [property-map {:key "property1" :value 4 :type "greater-than-or-equal"}
+     (let [property-map {:key "property1" :value 4 :type ">="}
            test-value (assign-property-filter property-map)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
@@ -84,8 +84,8 @@
 (deftest create-composite-filter-test
   (testing "The correct creation of a composite filter given a vector of filter map representations"
     (is
-     (let [input-map-vector [{:key "property1" :value "A" :type "equal"}
-                             {:key "property2" :value "B" :type "less-than"}]
+     (let [input-map-vector [{:key "property1" :value "A" :type "="}
+                             {:key "property2" :value 1 :type "<"}]
            test-value (create-composite-filter input-map-vector)
            expected-type StructuredQuery$CompositeFilter]
        (isa? (type test-value) expected-type)))))
@@ -93,13 +93,13 @@
 (deftest create-filter-test
   (testing "The correct creation of a filter"
     (is
-     (let [input-map-vector [{:key "property1" :value "A" :type "equal"}]
+     (let [input-map-vector [{:key "property1" :value "A" :type "="}]
            test-value (create-filter input-map-vector)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
     (is
-     (let [input-map-vector [{:key "property1" :value "A" :type "equal"}
-                             {:key "property2" :value "B" :type "less-than"}]
+     (let [input-map-vector [{:key "property1" :value "A" :type "="}
+                             {:key "property2" :value 1 :type "<"}]
            test-value (create-filter input-map-vector)
            expected-type StructuredQuery$CompositeFilter]
        (isa? (type test-value) expected-type)))))
@@ -115,15 +115,15 @@
 (deftest create-query-test
   (testing "The correct creation of a query object given a map of properties"
     (is
-     (let [input-map [{:key "property1" :value "A" :type "equal"}]
+     (let [input-map [{:key "property1" :value "A" :type "="}]
            input-kind test-kind
            test-value (create-query input-kind input-map)
            expected-type com.google.cloud.datastore.StructuredQuery]
        (isa? (type test-value) expected-type))))
   (testing "The correct creation of a query object given more than one map of properties"
     (is
-     (let [input-map-vector [{:key "property1" :value "A" :type "equal"}
-                             {:key "property2" :value "B" :type "less-than"}]
+     (let [input-map-vector [{:key "property1" :value "A" :type "="}
+                             {:key "property2" :value 1 :type "<"}]
            input-kind test-kind
            test-value (create-query input-kind input-map-vector)
            expected-type com.google.cloud.datastore.StructuredQuery]

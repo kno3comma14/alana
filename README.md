@@ -82,20 +82,20 @@ at Google Cloud Platform.
 
 ### Running queries
 
-To run a query, clj-datastore provides a function named ```create-query```. This function receives the datastore, the kind of 
+To run a query, clj-datastore provides a function named ```run-query```. This function receives the datastore, the kind of 
 the datastore as a string parameter and a vector of maps representing the filters to be attached to the query. The next example 
 show you how to run a query with a single property filter:
 
 ```clojure
-(def input-map [{:key "property1" :value "A" :type "equal"}])
+(def input-map [{:key "property1" :value "A" :type "="}])
 (def input-kind "some-kind")
 (def test-query (run-query ds input-kind input-map))
 ```
 
 On the other hand, you can run a query using a composite filter like:
 ```clojure
-(def input-map [{:key "property1" :value "A" :type "equal"}
-                {:key "property2" :value 1 :type "less-than"}])
+(def input-map [{:key "property1" :value "A" :type "="}
+                {:key "property2" :value 1 :type "<"}])
 (def input-kind "some-kind")
 (def test-query (run-query ds input-kind input-map))
 ```

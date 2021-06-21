@@ -38,11 +38,11 @@
   [{key :key value :value type :type datastore :datastore kind :kind}]
   (if (and (nil? datastore) (nil? kind))
     (case type
-     "equal"                 (StructuredQuery$PropertyFilter/eq key value)
-     "less-than"             (StructuredQuery$PropertyFilter/lt key value)
-     "less-than-or-equal"    (StructuredQuery$PropertyFilter/le key value)
-     "greater-than"          (StructuredQuery$PropertyFilter/gt key value)
-     "greater-than-or-equal" (StructuredQuery$PropertyFilter/ge key value))
+     "="  (StructuredQuery$PropertyFilter/eq key value)
+     "<"  (StructuredQuery$PropertyFilter/lt key value)
+     "<=" (StructuredQuery$PropertyFilter/le key value)
+     ">"  (StructuredQuery$PropertyFilter/gt key value)
+     ">=" (StructuredQuery$PropertyFilter/ge key value))
     (when (nil? value)
       (let [internal-key (.newKey (.setKind (.newKeyFactory datastore) kind) key)]
        (case type

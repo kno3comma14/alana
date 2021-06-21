@@ -19,7 +19,7 @@
   (testing "Integration test to run a single filter query against a datastore and verify its type and values correctness"
     (let [ds test-datastore
           input-kind integration-test-kind
-          property-map [{:key "property1" :value "Hello" :type "equal"}]
+          property-map [{:key "property1" :value "Hello" :type "="}]
           test-value (run-query ds input-kind property-map)
           expected-type com.google.cloud.datastore.QueryResults
           expected-value "Hello"]
@@ -28,8 +28,8 @@
   (testing "Integration test to run a composite filter query against a datastore and verify its type and values correctness"
     (let [ds test-datastore
           input-kind integration-test-kind
-          property-map [{:key "property2" :value "World" :type "equal"}
-                        {:key "quantity" :value 32 :type "equal"}]
+          property-map [{:key "property2" :value "World" :type "="}
+                        {:key "quantity" :value 32 :type "="}]
           test-value (run-query ds input-kind property-map)
           expected-type com.google.cloud.datastore.QueryResults
           expected-value "Hello"]
