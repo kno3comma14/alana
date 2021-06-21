@@ -31,12 +31,6 @@
            expected-type com.google.cloud.datastore.FullEntity$Builder]
        (isa? (type test-value) expected-type)))))
 
-(deftest create-datastore-test
-  (testing "The creation of the correct datastore instance type"
-    (is 
-     (let [test-value (create-datastore)]
-       (isa? (type test-value) Datastore)))))
-
 (deftest create-entity-test
   (testing "The creation of the correct entity instance type and well defined structure"
     (is
