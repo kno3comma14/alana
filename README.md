@@ -5,7 +5,7 @@ _Clojure support for Google Datastore_
 ## tl;dr
 
 clj-datastore is a library written on top of [java-datastore](https://github.com/googleapis/java-datastore)
-to be used with clojure datatypes.
+to be used with clojure datatypes. This library provides support for Google Cloud Platform Datastore.
 
 ## Project status
 
@@ -14,7 +14,7 @@ poor quality, it does mean that probably will exist changes over the source code
 
 ## Installation
 
-The project is not uploaded yet to [clojars](https://clojars.org/) yet, but you can add the dependencies to
+The project is not uploaded to [clojars](https://clojars.org/) yet, but you can add the dependencies to
 your projects using the git repository as follows:
 ```clojure
 ...

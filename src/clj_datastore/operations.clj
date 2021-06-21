@@ -34,6 +34,7 @@
      (.build (map-to-entity-builder entity-map key)))))
 
 (defn assign-property-filter
+  "Given a map that describes the structure of a filter, this function returns the corresponding property filter"
   [{key :key value :value type :type datastore :datastore kind :kind}]
   (if (and (nil? datastore) (nil? kind))
     (case type
@@ -49,6 +50,7 @@
        "has-ancestor" (StructuredQuery$PropertyFilter/hasAncestor internal-key))))))
 
 (defn create-composite-filter
+  "This function returns a composite filter based on a given vector of maps that represents filter structure"
   [[first-map-filter & other-map-filters]]
   (let [first-property-filter (assign-property-filter first-map-filter)
         other-property-filters (into-array (map assign-property-filter other-map-filters))
@@ -58,16 +60,19 @@
     result-composite-filter))
 
 (defn create-filter
+  "This function creates a filter"
   [property-map]
   (if (> (count property-map) 1)
     (create-composite-filter property-map)
     (assign-property-filter (first property-map))))
 
 (defn create-gql-query
+  "This function creates a gql query"
   [query-string]
   (.build (Query/newGqlQueryBuilder query-string)))
 
 (defn create-query
+  "This function creates a query. Depending of the parameters, this could create a normal query or a GQL query"
   ([kind property-map]
    (let [query (.setKind (Query/newEntityQueryBuilder) kind)
          query-filter (create-filter property-map)]
