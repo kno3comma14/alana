@@ -14,11 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-    - with:
-        clojure_url: https://download.clojure.org/install/linux-install-1.10.3.855.sh
       run: |
         apt-get install -y bash curl rlwrap openjdk-11-jdk
-        curl -O $INPUT_CLOJURE_URL
+        curl -O https://download.clojure.org/install/linux-install-1.10.3.855.sh
         chmod +x linux-install-1.10.3.855.sh
         ./linux-install-1.10.3.855.sh
         clj -P
