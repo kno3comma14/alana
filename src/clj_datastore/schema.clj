@@ -2,14 +2,6 @@
   (:import (com.google.cloud.datastore Datastore
                                        Entity)))
 
-(defn datastore?
-  [datastore]
-  (isa? (type x) Datastore))
-
-(defn entity?
-  [datastore]
-  (isa? (type x) Entity))
-
 (defn is-type?
   [target]
   (let [target-type-values ["="
@@ -27,7 +19,7 @@
 
 (def EntityInput
   [:map {:closed true}
-   [:datastore datastore?]
+   [:datastore any?]
    [:kind string?]
    [:name {:optional true} string?]
    [:entity-map map?]])
@@ -38,7 +30,7 @@
     [:key string?]
     [:value {:optional true} string?]
     [:type [:and string? is-type?]]
-    [:datastore {:optional true} datastore?]
+    [:datastore {:optional true} any?]
     [:kind {:optional true} string?]]
    [:or 
     [:fn {:error/message (:invalid-is-null error-messages)
@@ -57,7 +49,7 @@
              (not (nil? kind))))]
     [:fn {:error/message (:invalid-generic error-messages)
           :error/path [:type]}
-     '(fn [{:keys type value datastore kind}]
+     '(fn [{:keys [type value datastore kind]}]
         (let [generic-filter-types ["="
                                     "<"
                                     "<="
@@ -71,15 +63,15 @@
 (def CreateQueryInput
   [:map
    [:kind string?]
-   [property-map map?]])
+   [:property-map map?]])
 
 (def RunQueryInput
   [:map
-   [:datastore datastore?]
+   [:datastore any?]
    [:kind string?]
    [:property-map vector?]])
 
 (def UpsertEntityInput
   [:map
-   [:datastore datastore?]
-   [:entity] entity?])
+   [:datastore any?]
+   [:entity] any?])

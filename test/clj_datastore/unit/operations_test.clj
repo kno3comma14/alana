@@ -10,7 +10,6 @@
                                        StructuredQuery$PropertyFilter
                                        StructuredQuery$CompositeFilter)))
 
-;;(def test-datastore (.getService (DatastoreOptions/getDefaultInstance)))
 (def test-datastore (.getService (.build (.setServiceRpcFactory 
                               (.setHost 
                                (.setProjectId 
