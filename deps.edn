@@ -2,7 +2,8 @@
  
  :deps {org.clojure/clojure                     {:mvn/version "1.10.3"}
         com.google.cloud/google-cloud-datastore {:mvn/version "1.106.5-sp.1"}
-        metosin/malli                           {:mvn/version "0.5.1"}}
+        metosin/malli                           {:mvn/version "0.5.1"}
+        borkdude/sci                            {:mvn/version "0.2.5"}}
  
  :aliases {:dev 
            {}
