@@ -1,21 +1,4 @@
-(ns clj-datastore.schema
-  (:import (com.google.cloud.datastore Datastore
-                                       Entity)))
-
-(defn is-type?
-  [target]
-  (let [target-type-values ["="
-                            "<"
-                            "<="
-                            ">"
-                            ">="
-                            "is-null"
-                            "has-ancestor"]]
-    (not (nil? (some #(= target %) target-type-values)))))
-
-(def error-messages {:invalid-is-null "Invalid is-null property type"
-                     :invalid-has-ancestry "Invalid has-ancestry property type"
-                     :invalid-generic "Invalid property type"})
+(ns clj-datastore.schema)
 
 (def EntityInput
   [:map {:closed true}
@@ -25,53 +8,32 @@
    [:entity-map map?]])
 
 (def PropertyFilterInput
-  [:and
+  [:or
    [:map {:closed true}
     [:key string?]
-    [:value {:optional true} string?]
-    [:type [:and string? is-type?]]
-    [:datastore {:optional true} any?]
-    [:kind {:optional true} string?]]
-   [:or 
-    [:fn {:error/message (:invalid-is-null error-messages)
-          :error/path [:type]}
-     '(fn [{:keys [datastore kind value type]}]
-        (and (= type "is-null") 
-             (nil? datastore) 
-             (nil? kind)
-             (nil? value)))]
-    [:fn {:error/message (:invalid-has-ancestor error-messages)
-          :error/path [:type]}
-     '(fn [{:keys [type value datastore kind]}]
-        (and (= type "has-ancestor") 
-             (nil? value)
-             (not (nil? datastore))
-             (not (nil? kind))))]
-    [:fn {:error/message (:invalid-generic error-messages)
-          :error/path [:type]}
-     '(fn [{:keys [type value datastore kind]}]
-        (let [generic-filter-types ["="
-                                    "<"
-                                    "<="
-                                    ">"
-                                    ">="]]
-          (and (not (nil? (some #(= type %) generic-filter-types)))
-               (nil? datastore)
-               (nil? kind)
-               (not (nil? value)))))]]])
+    [:value string?]
+    [:type [:enum "=" "<" "<=" ">" ">="]]]
+   [:map {:closed true}
+    [:key string?]
+    [:type [:enum "is-null"]]]
+   [:map {:closed true}
+    [:key string?]
+    [:type [:enum "has-ancestor"]]
+    [:datastore any?]
+    [:kind string?]]])
 
 (def CreateQueryInput
-  [:map
+  [:map {:closed true}
    [:kind string?]
-   [:property-map map?]])
+   [:property-map any?]])
 
 (def RunQueryInput
-  [:map
+  [:map {:closed true}
    [:datastore any?]
    [:kind string?]
-   [:property-map vector?]])
+   [:property-map any?]])
 
 (def UpsertEntityInput
   [:map
    [:datastore any?]
-   [:entity] any?])
+   [:entity any?]])
