@@ -9,9 +9,15 @@
                      {:name "Barr"   :gender "M" :created (now) :first-chapter-appearance 6}
                      {:name "Yuma"   :gender "F" :created (now) :first-chapter-appearance 15}])
 
-
 (def datastore (create-datastore))
+
 (def kind "some-saga-characters")
+
+(def entities 
+  (reduce (fn [acc, x]
+            (conj acc (create-entity datastore kind x)))
+          []
+          generated-data))
 
 (defn- now
   []
@@ -20,18 +26,14 @@
 (defn init-gcp-environment
   "This function setup the initial environment for integration tests"
   []
-  (doseq [item generated-data]
-    (let [entity (create-entity 
-                  datastore kind 
-                  (:name item) 
-                  (select-keys item [:gender
-                                     :created
-                                     :first-chapter-appearance]))]
-      (upsert-entity datastore entity))))
+  (doseq [entity entities]
+    (upsert-entity datastore entity)))
 
 (defn teardown-gcp-environment
   "This function teardown the initial environment for integration tests"
-  [])
+  []
+  (doseq [entity entities]
+    (.delete datastore entity)))
 
 (defn wrap-setup
   "Wrapper to be used for test fixtures"
