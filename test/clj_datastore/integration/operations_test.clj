@@ -42,13 +42,25 @@
       (is (=  (.get (.get (.getProperties (.next test-value)) "name")) expected-value)))))
 
 (deftest upsert-entity-test
-  (testing "Integration test to upsert an entity into a datastore"
+  (testing "Integration test to upsert an entity into a datastore instance"
     (is
      (let [datastore test-datastore
            kind integration-test-kind
-           property-map {:name "Hazel"  :gender "F" :first-chapter-appearance 1}
+           property-map {:name "Hazel" :gender "F" :first-chapter-appearance 1}
            entity (create-entity datastore kind property-map)
            test-value (upsert-entity datastore entity)
+           expected-type com.google.cloud.datastore.Entity]
+       (swap! entity-keys conj (.getKey test-value))
+       (isa? (type test-value) expected-type)))))
+
+(deftest insert-entity-test
+  (testing "Integration test to insert an entity into a datastore instance"
+    (is
+     (let [datastore test-datastore
+           kind integration-test-kind
+           property-map {:name "Even" :gender "F" :first-chapter-appearance 14}
+           entity (create-entity datastore kind property-map)
+           test-value (insert-entity datastore entity)
            expected-type com.google.cloud.datastore.Entity]
        (swap! entity-keys conj (.getKey test-value))
        (isa? (type test-value) expected-type)))))

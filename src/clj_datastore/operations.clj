@@ -91,6 +91,11 @@
      (.run datastore query))))
 
 (defn upsert-entity
-  "Upsert an entity to Firestore"
+  "Upsert an entity to Datastore"
   [datastore entity]
   (.put datastore entity))
+
+(defn insert-entity
+  "Insert an entity to Datastore"
+  [datastore entity]
+  (.add datastore entity))
