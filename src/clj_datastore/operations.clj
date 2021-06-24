@@ -1,12 +1,20 @@
 (ns clj-datastore.operations
-  (:import (com.google.cloud.datastore Datastore
+  (:import [com.google.cloud.datastore Datastore
                                        DatastoreOptions
                                        Entity
                                        Key
                                        Query
                                        StructuredQuery
                                        StructuredQuery$PropertyFilter
-                                       StructuredQuery$CompositeFilter)))
+                                       StructuredQuery$CompositeFilter
+                                       TimestampValue]
+           [com.google.cloud Timestamp]))
+
+(defn java-date->timestamp-value
+  "This function transform a java.util.Date to TimestampValue"
+  [date]
+  (let [timestamp (com.google.cloud.Timestamp/of date)]
+    (.build (com.google.cloud.datastore.TimestampValue/newBuilder timestamp))))
 
 (defn map-to-entity-builder
   "Transforms from a native hash-map to a datastore entity"
@@ -16,7 +24,9 @@
     (doseq [k entity-map-keys]
       (let [entity-field (name k)
             entity-value (get entity-map k)]
-        (.set entity entity-field entity-value)))
+        (if (isa? (type entity-value) java.util.Date)
+          (.set entity entity-field (java-date->timestamp-value entity-value))
+          (.set entity entity-field entity-value))))
     entity))
 
 (defn create-datastore
@@ -91,6 +101,11 @@
      (.run datastore query))))
 
 (defn upsert-entity
-  "Upsert an entity to Firestore"
+  "Upsert an entity to Datastore"
   [datastore entity]
   (.put datastore entity))
+
+(defn insert-entity
+  "Insert an entity to Datastore"
+  [datastore entity]
+  (.add datastore entity))
