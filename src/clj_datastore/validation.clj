@@ -57,4 +57,11 @@
                         :entity entity}]
     (validate UpsertEntityInput validation-map)))
 
+(defn validate-map-to-entity-builder-input
+  "Validates map-to-entity-builder input using MapToEntityBuilderInput schema."
+  [entity-map key]
+  (let [validation-map {:entity-map entity-map
+                        :key key}]
+    (validate MapToEntityBuilderInput validation-map)))
+
 

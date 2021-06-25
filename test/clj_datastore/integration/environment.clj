@@ -3,12 +3,12 @@
 
 (def entity-keys (atom []))
 
-(def generated-data [{:name "Alana"  :gender "F" :first-chapter-appearance 1  :created (java.util.Date. )}
-                     {:name "Marko"  :gender "M" :first-chapter-appearance 1  :created (java.util.Date. )}
-                     {:name "Izabel" :gender "F" :first-chapter-appearance 2  :created (java.util.Date. )}
-                     {:name "Klara"  :gender "F" :first-chapter-appearance 6  :created (java.util.Date. )}
-                     {:name "Barr"   :gender "M" :first-chapter-appearance 6  :created (java.util.Date. )}
-                     {:name "Yuma"   :gender "F" :first-chapter-appearance 15 :created (java.util.Date. )}])
+(def generated-data [{:name "Alana"  :gender "F" :first-chapter-appearance 1  :created (java.util.Date.)}
+                     {:name "Marko"  :gender "M" :first-chapter-appearance 1  :created (java.util.Date.)}
+                     {:name "Izabel" :gender "F" :first-chapter-appearance 2  :created (java.util.Date.)}
+                     {:name "Klara"  :gender "F" :first-chapter-appearance 6  :created (java.util.Date.)}
+                     {:name "Barr"   :gender "M" :first-chapter-appearance 6  :created (java.util.Date.)}
+                     {:name "Yuma"   :gender "F" :first-chapter-appearance 15 :created (java.util.Date.)}])
 
 (def datastore (create-datastore))
 

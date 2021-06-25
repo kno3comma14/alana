@@ -1,5 +1,10 @@
 (ns clj-datastore.schema)
 
+(def MapToEntityBuilderInput
+  [:map {:closed true}
+   [:entity-map map?]
+   [:key string?]])
+
 (def EntityInput
   [:map {:closed true}
    [:datastore any?]

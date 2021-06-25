@@ -10,11 +10,13 @@
                                        TimestampValue]
            [com.google.cloud Timestamp]))
 
-(defn java-date->timestamp-value
+(defn- java-date->timestamp-value
   "This function transform a java.util.Date to TimestampValue"
   [date]
-  (let [timestamp (com.google.cloud.Timestamp/of date)]
-    (.build (com.google.cloud.datastore.TimestampValue/newBuilder timestamp))))
+  (if (not (nil? date ))
+    (let [timestamp (com.google.cloud.Timestamp/of date)]
+      (.build (com.google.cloud.datastore.TimestampValue/newBuilder timestamp)))
+    (throw (AssertionError. "The date parameter has to be a not nil java.util.Date object."))))
 
 (defn map-to-entity-builder
   "Transforms from a native hash-map to a datastore entity"
