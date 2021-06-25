@@ -10,11 +10,14 @@
 (defn- validate
   [schema validation-map]
   (let [cleaned-validation-map (clean-validation-map validation-map)]
-    (if (malli/validate schema cleaned-validation-map)
-      true
+    (malli/validate schema cleaned-validation-map)))
+
+(defn- explain
+  [schema validation-map]
+  (let [cleaned-validation-map (clean-validation-map validation-map)]
     (-> schema
         (malli/explain cleaned-validation-map)
-        (me/humanize)))))
+        (me/humanize))))
 
 (defn validate-entity-input
   "Validates an entity input using EntityInput schema."
@@ -24,6 +27,15 @@
                         :name name
                         :entity-map entity-map}]
     (validate EntityInput validation-map)))
+
+(defn explain-entity-input-failures
+  "Explain entity input failures given an EntityInput schema."
+  [datastore kind name entity-map]
+  (let [validation-map {:datastore datastore
+                        :kind kind
+                        :name name
+                        :entity-map entity-map}]
+    (explain EntityInput validation-map)))
 
 (defn validate-property-filter-input
   "Validates a property filter input using PropertyFilterInput schema."
