@@ -1,7 +1,7 @@
-(ns clj-datastore.integration.operations-test
+(ns alana.integration.operations-test
   (:require [clojure.test :refer :all]
-            [clj-datastore.operations :refer :all]
-            [clj-datastore.integration.environment :refer :all])
+            [alana.operations :refer :all]
+            [alana.integration.environment :refer :all])
   (:import (com.google.cloud.datastore Datastore
                                        DatastoreOptions
                                        Entity

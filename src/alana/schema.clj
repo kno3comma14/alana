@@ -1,4 +1,4 @@
-(ns clj-datastore.schema)
+(ns alana.schema)
 
 (def MapToEntityBuilderInput
   [:map {:closed true}

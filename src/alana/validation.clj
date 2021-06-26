@@ -1,7 +1,7 @@
-(ns clj-datastore.validation
+(ns alana.validation
   (:require [malli.core :as malli]
             [malli.error :as me]
-            [clj-datastore.schema :refer :all]))
+            [alana.schema :refer :all]))
 
 (defn- clean-validation-map
   "Removes nil elements from the map to be evaluated."

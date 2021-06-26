@@ -1,7 +1,7 @@
-(ns clj-datastore.unit.validation-test
+(ns alana.unit.validation-test
   (:require [clojure.test :refer :all]
-            [clj-datastore.validation :refer :all]
-            [clj-datastore.operations :refer :all])
+            [alana.validation :refer :all]
+            [alana.operations :refer :all])
   (:import (com.google.cloud.datastore Datastore
                                        DatastoreOptions
                                        Entity)))
@@ -20,7 +20,7 @@
      (let [datastore test-datastore
            kind "test-kind"
            name "test-name"
-           entity-map {:name "clj-datastore"}
+           entity-map {:name "alana"}
            test-value (validate-entity-input datastore kind name entity-map)
            expected-value true]
        (= test-value expected-value))))
@@ -29,7 +29,7 @@
      (let [datastore test-datastore
            kind "test-kind"
            name nil
-           entity-map {:name "clj-datastore"}
+           entity-map {:name "alana"}
            test-value (validate-entity-input datastore kind name entity-map)
            expected-value true]
        (= test-value expected-value)))))
