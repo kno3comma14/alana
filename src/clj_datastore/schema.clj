@@ -48,11 +48,16 @@
     [:query-string string?]]])
 
 (def UpsertEntityInput
-  [:map
+  [:map {:closed true}
    [:datastore any?]
    [:entity any?]])
 
 (def InsertEntityInput
-  [:map
+  [:map {:closed true}
    [:datastore any?]
    [:entity any?]])
+
+(def DeleteEntityInput
+  [:map {:closed true}
+   [:datastore any?]
+   [:completed-key any?]])

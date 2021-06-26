@@ -135,8 +135,22 @@
     (validate InsertEntityInput validation-map)))
 
 (defn explain-insert-entity-input-failures
-  "Explains insert entity input failures given a InsertEntityInput schema."
+  "Explains insert entity input failures given an InsertEntityInput schema."
   [datastore entity]
   (let [validation-map {:datastore datastore
                         :entity entity}]
     (explain InsertEntityInput validation-map)))
+
+(defn validate-delete-entity-input
+  "Validates delete-entity function input using DeleteEntityInput schema."
+  [datastore completed-key]
+  (let [validation-map {:datastore datastore
+                        :completed-key completed-key}]
+    (validate DeleteEntityInput validation-map)))
+
+(defn explain-delete-entity-input-failures
+  "Explains delete entity input failures given a DeleteEntityInput schema."
+  [datastore completed-key]
+  (let [validation-map {:datastore datastore
+                        :completed-key completed-key}]
+    (explain DeleteEntityInput validation-map)))

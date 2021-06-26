@@ -64,3 +64,13 @@
            expected-type com.google.cloud.datastore.Entity]
        (swap! entity-keys conj (.getKey test-value))
        (isa? (type test-value) expected-type)))))
+
+(deftest delete-entity-test
+  (testing "Integration test to delete an entity from a datastore instance"
+    (is
+     (let [datastore test-datastore
+           completed-key (get @entity-keys 1)
+           test-value (delete-entity datastore completed-key)
+           expected-type nil]
+       (println (type test-value))
+       (isa? (type test-value) expected-type)))))
