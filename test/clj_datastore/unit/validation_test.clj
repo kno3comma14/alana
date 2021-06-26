@@ -101,3 +101,12 @@
            test-value (validate-upsert-entity-input datastore entity)
            expected-value true]
        (= test-value expected-value)))))
+
+(deftest validate-map-to-entity-builder-input-test
+  (testing "validate-map-to-entity-builder-input function"
+    (is
+     (let [entity-map {:a "a" :b "b"}
+           key "test-key"
+           test-value (validate-map-to-entity-builder-input entity-map key)
+           expected-value true]
+       (= test-value expected-value)))))
