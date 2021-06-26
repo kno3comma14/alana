@@ -71,7 +71,7 @@
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
     (is
-     (let [property-map {:key "property1" :type "is-null" :datastore test-datastore :kind test-kind}
+     (let [property-map {:key "property1" :type "is-null"}
            test-value (assign-property-filter property-map)
            expected-type StructuredQuery$PropertyFilter]
        (isa? (type test-value) expected-type)))
@@ -85,7 +85,7 @@
   (testing "The correct creation of a composite filter given a vector of filter map representations"
     (is
      (let [input-map-vector [{:key "property1" :value "A" :type "="}
-                             {:key "property2" :value 1 :type "<"}]
+                             {:key "property2" :value  1  :type "<"}]
            test-value (create-composite-filter input-map-vector)
            expected-type StructuredQuery$CompositeFilter]
        (isa? (type test-value) expected-type)))))
@@ -123,7 +123,7 @@
   (testing "The correct creation of a query object given more than one map of properties"
     (is
      (let [input-map-vector [{:key "property1" :value "A" :type "="}
-                             {:key "property2" :value 1 :type "<"}]
+                             {:key "property2" :value  1  :type "<"}]
            input-kind test-kind
            test-value (create-query input-kind input-map-vector)
            expected-type com.google.cloud.datastore.StructuredQuery]

@@ -3,20 +3,25 @@
 (def MapToEntityBuilderInput
   [:map {:closed true}
    [:entity-map map?]
-   [:key string?]])
+   [:key any?]])
 
 (def EntityInput
-  [:map {:closed true}
-   [:datastore any?]
-   [:kind string?]
-   [:name {:optional true} string?]
-   [:entity-map map?]])
+  [:or 
+   [:map {:closed true}
+    [:datastore any?]
+    [:kind string?]
+    [:name {:optional true} string?]
+    [:entity-map map?]]
+   [:map {:closed true}
+    [:datastore any?]
+    [:kind string?]
+    [:entity-map map?]]])
 
 (def PropertyFilterInput
   [:or
    [:map {:closed true}
     [:key string?]
-    [:value string?]
+    [:value any?]
     [:type [:enum "=" "<" "<=" ">" ">="]]]
    [:map {:closed true}
     [:key string?]
@@ -33,12 +38,21 @@
    [:property-map any?]])
 
 (def RunQueryInput
-  [:map {:closed true}
-   [:datastore any?]
-   [:kind string?]
-   [:property-map any?]])
+  [:or 
+   [:map {:closed true}
+    [:datastore any?]
+    [:kind string?]
+    [:property-map any?]]
+   [:map {:closed true}
+    [:datastore any?]
+    [:query-string string?]]])
 
 (def UpsertEntityInput
+  [:map
+   [:datastore any?]
+   [:entity any?]])
+
+(def InsertEntityInput
   [:map
    [:datastore any?]
    [:entity any?]])
