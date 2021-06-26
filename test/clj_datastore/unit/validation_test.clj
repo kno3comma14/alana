@@ -87,7 +87,6 @@
                           :kind "test-kind"}]
            test-value (validate-run-query-input datastore kind property-map)
            expected-value true]
-       (println test-value)
        (= test-value expected-value)))))
 
 (deftest validate-upsert-entity-input-test
@@ -99,6 +98,30 @@
            property-map {:a "A"}
            entity (create-entity datastore kind name property-map)
            test-value (validate-upsert-entity-input datastore entity)
+           expected-value true]
+       (= test-value expected-value)))))
+
+(deftest validate-insert-entity-input-test
+  (testing "validate-insert-entity-input function"
+    (is
+     (let [datastore test-datastore
+           kind "test-kind"
+           name "test-name"
+           property-map {:a "A"}
+           entity (create-entity datastore kind name property-map)
+           test-value (validate-insert-entity-input datastore entity)
+           expected-value true]
+       (= test-value expected-value)))))
+
+(deftest validate-delete-entity-input-test
+  (testing "validate-delete-entity-input function"
+    (is
+     (let [datastore test-datastore
+           kind "test-kind"
+           name "test-name"
+           property-map {:a "A"}
+           completed-entity (create-entity datastore kind name property-map)
+           test-value (validate-delete-entity-input datastore completed-entity)           
            expected-value true]
        (= test-value expected-value)))))
 
