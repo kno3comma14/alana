@@ -1,5 +1,5 @@
-(ns clj-datastore.integration.environment
-  (:require [clj-datastore.operations :refer :all]))
+(ns alana.integration.environment
+  (:require [alana.operations :refer :all]))
 
 (def entity-keys (atom []))
 

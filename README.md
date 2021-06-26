@@ -1,17 +1,17 @@
-# clj-datastore
+# alana
 
 _Clojure support for Google Datastore_
 
-![Github](https://github.com/kno3comma14/clj-datastore/actions/workflows/clojure.yml/badge.svg?style=svg)
+![Github](https://github.com/kno3comma14/alana/actions/workflows/clojure.yml/badge.svg?style=svg)
 
 ## tl;dr
 
-clj-datastore is a library written on top of [java-datastore](https://github.com/googleapis/java-datastore)
+alana is a library written on top of [java-datastore](https://github.com/googleapis/java-datastore)
 to be used with clojure datatypes. This library provides support for Google Cloud Platform Datastore.
 
 ## Project status
 
-clj-datastore is alpha software at the moment, this doesn't mean that the project cannot be used or it has
+alana is alpha software at the moment, this doesn't mean that the project cannot be used or it has
 poor quality, it does mean that probably will exist changes over the source code that could break the API.
 
 ## Installation
@@ -21,7 +21,7 @@ your projects using the git repository as follows:
 ```clojure
 ...
  :deps {org.clojure/clojure              {:mvn/version "1.10.1"}
-        github-kno3comma14/clj-datastore {:git/url "https://github.com/kno3comma14/clj-datastore.git"
+        github-kno3comma14/alana {:git/url "https://github.com/kno3comma14/alana.git"
                                           :sha "3684170d5fbe208ea9fd5181b616d9d981a013ca"}}
 ...                                          
 ```
@@ -32,10 +32,10 @@ After the dependencies were added to the project, you can start using the librar
 
 ```clojure
 (ns testing-project.core
-  (:require [clj-datastore.operations :refer :all]))
+  (:require [alana.operations :refer :all]))
 ```
 
-At this time the project has only one namespace named ```clj-datastore.operations```. In this namespace
+At this time the project has only one namespace named ```alana.operations```. In this namespace
 you can find all the basic functionalities mentioned in the following sections.
 
 ### Creating entities
@@ -53,7 +53,7 @@ After this step, we can create an entity object with one of these two commands:
   (create-entity ds 
                  "some-kind" 
                  "some-name" 
-                 {:hello "Hello, " :name "clj-datastore"}))
+                 {:hello "Hello, " :name "alana"}))
 ```
 
 or
@@ -62,12 +62,12 @@ or
 (def test-entity 
   (create-entity ds 
                  "some-kind" 
-                 {:hello "Hello, " :name "clj-datastore"}))
+                 {:hello "Hello, " :name "alana"}))
 ```
 
 ```ds``` is the datastore that we just created, ```"some-kind"``` is a String that represents the kind of the entity,
 ```"some-name"``` is an optional String(if this argument is not provided the entity will be created with a random id) 
-representing that gives unicity to the entity to be created, and the map *{:hello "Hello, " :name "clj-datastore"}* 
+representing that gives unicity to the entity to be created, and the map *{:hello "Hello, " :name "alana"}* 
 is the representation of the data to be created in the datastore.
 
 
@@ -84,7 +84,7 @@ at Google Cloud Platform.
 
 ### Running queries
 
-To run a query, clj-datastore provides a function named ```run-query```. This function receives the datastore, the kind of 
+To run a query, alana provides a function named ```run-query```. This function receives the datastore, the kind of 
 the datastore as a string parameter and a vector of maps representing the filters to be attached to the query. The next example 
 show you how to run a query with a single property filter:
 

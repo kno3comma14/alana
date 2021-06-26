@@ -1,4 +1,4 @@
-(ns clj-datastore.operations
+(ns alana.operations
   (:import [com.google.cloud.datastore Datastore
                                        DatastoreOptions
                                        Entity
@@ -9,7 +9,7 @@
                                        StructuredQuery$CompositeFilter
                                        TimestampValue]
            [com.google.cloud Timestamp])
-  (:require [clj-datastore.validation :refer :all]))
+  (:require [alana.validation :refer :all]))
 
 (defn- java-date->timestamp-value
   "This function transform a java.util.Date to TimestampValue"
