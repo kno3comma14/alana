@@ -22,7 +22,7 @@ your projects using the git repository as follows:
 ...
  :deps {org.clojure/clojure              {:mvn/version "1.10.1"}
         github-kno3comma14/alana {:git/url "https://github.com/kno3comma14/alana.git"
-                                          :sha "13496614dc602ed254d6890aead6e37a28c1f65c"}}
+                                          :sha "e3447ab38a03dd22649815da28c51a8f44dc7da1"}}
 ...                                          
 ```
 
