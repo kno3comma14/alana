@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
+  <groupId>org.clojars.enyert</groupId>
+  <artifactId>alana</artifactId>
+  <version>1.0.0-alpha</version>
+  <name>alana</name>
+  <description>Clojure support for Google Datastore.</description>
+  <url>https://github.com/lambdaisland/kaocha</url>
+  <inceptionYear>2021</inceptionYear>
+  <licenses>
+    <license>
+      <name>Mozilla Public License 2.0</name>
+      <url>https://www.mozilla.org/en-US/MPL/2.0</url>
+    </license>
+  </licenses>
+  <scm>
+    <url>https://github.com/kno3comma14/alana</url>
+    <connection>scm:git:git://github.com/kno3comma14/alana.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/kno3comma14/kaocha.git</developerConnection>
+    <tag>v1.0.0-alpha</tag>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.10.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-datastore</artifactId>
+      <version>1.106.5-sp.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-core</artifactId>
+      <version>1.95.3</version>
+    </dependency>
+    <dependency>
+      <groupId>metosin</groupId>
+      <artifactId>malli</artifactId>
+      <version>0.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>borkdude</groupId>
+      <artifactId>sci</artifactId>
+      <version>0.2.5</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+      </resource>
+      <resource>
+        <directory>resources</directory>
+      </resource>
+    </resources>
+  </build>
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>https://repo.clojars.org/</url>
+    </repository>
+  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>clojars</id>
+      <name>Clojars repository</name>
+      <url>https://clojars.org/repo</url>
+    </repository>
+  </distributionManagement>
+</project>
