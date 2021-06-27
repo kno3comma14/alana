@@ -16,13 +16,12 @@ poor quality, it does mean that probably will exist changes over the source code
 
 ## Installation
 
-The project is not uploaded to [clojars](https://clojars.org/) yet, but you can add the dependencies to
-your projects using the git repository as follows:
+You can add the dependencies to your projects using clojars:
+
 ```clojure
 ...
  :deps {org.clojure/clojure              {:mvn/version "1.10.1"}
-        github-kno3comma14/alana {:git/url "https://github.com/kno3comma14/alana.git"
-                                          :sha "e3447ab38a03dd22649815da28c51a8f44dc7da1"}}
+        org.clojars.enyert/alana         {:mvn/version "1.0.0-alpha"}}
 ...                                          
 ```
 
