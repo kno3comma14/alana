@@ -126,12 +126,34 @@
              {:causes {:query-string "should be a not empty string"}
               :actual-value {:value [query-string]}}))))
 
+(defn entity->hash-map
+  "This function transforms from datastore entity object to hash-map"
+  [entity-object]
+  (let [properties (keys (.getProperties entity-object))]
+    (reduce (fn [acc x] 
+              (assoc acc (keyword x) 
+                         (.get (.get (.getProperties entity-object) x)))) 
+            {} 
+            properties)))
+
+(defn query-result->vector
+  "This function takes a query result object and transform it to vector"
+  [query-result]
+  (loop [has-next (.hasNext query-result)
+         result []]
+    (if (not has-next)
+      result
+      (recur (.hasNext query-result)
+             (if (.hasNext query-result)
+               (conj result (entity->hash-map (.next query-result)))
+               result)))))
+
 (defn run-query
   "Run a query against a given datastore"  
   ([datastore kind property-map]
    (if (validate-run-query-input datastore kind property-map)
      (let [query (create-query kind property-map)]
-       (.run datastore query))
+       (query-result->vector (.run datastore query)))
      (throw
       (ex-info "Input assertion failed."
                {:causes (explain-run-query-input-failures datastore kind property-map)}
