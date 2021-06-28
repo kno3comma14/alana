@@ -4,7 +4,7 @@
            [com.google.cloud Timestamp])
   (:require [alana.validation :refer :all]))
 
-(defn- java-date->timestamp-value
+(defn java-date->timestamp-value
   "This function transform a java.util.Date to TimestampValue"
   [date]
   (if (not (nil? date ))
