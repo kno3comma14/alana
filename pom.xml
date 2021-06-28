@@ -7,7 +7,7 @@
   <version>1.1.5-alpha</version>
   <name>alana</name>
   <description>Clojure support for Google Datastore.</description>
-  <url>https://github.com/lambdaisland/kaocha</url>
+  <url>https://github.com/kno3comma14/alana</url>
   <inceptionYear>2021</inceptionYear>
   <licenses>
     <license>
