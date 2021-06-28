@@ -23,14 +23,14 @@
         (malli/explain cleaned-validation-map)
         (me/humanize))))
 
-(defn validate-map-to-entity-builder-input
+(defn validate-map->entity-builder-input
   "Validates map-to-entity-builder input using MapToEntityBuilderInput schema."
   [entity-map key]
   (let [validation-map {:entity-map entity-map
                         :key key}]
     (validate MapToEntityBuilderInput validation-map)))
 
-(defn explain-map-to-entity-builder-input-failures
+(defn explain-map->entity-builder-input-failures
   "Explains upsert entity input failures given a MapToEntityBuilderInput schema."
   [entity-map key]
   (let [validation-map {:entity-map entity-map

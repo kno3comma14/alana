@@ -25,8 +25,8 @@
           input-kind integration-test-kind
           property-map [{:key "name" :value "Alana" :type "="}]
           test-value (run-query ds input-kind property-map)
-          test-name (.get (.get (.getProperties (.next test-value)) "name"))
-          expected-type com.google.cloud.datastore.QueryResults
+          test-name (:name (nth test-value 0))
+          expected-type clojure.lang.PersistentVector
           expected-value "Alana"]
       (is (isa? (type test-value) expected-type))
       (is (=  test-name expected-value))))
@@ -36,10 +36,10 @@
           property-map [{:key "gender" :value "F" :type "="}
                         {:key "first-chapter-appearance" :value 6 :type "="}]
           test-value (run-query ds input-kind property-map)
-          expected-type com.google.cloud.datastore.QueryResults
+          expected-type clojure.lang.PersistentVector
           expected-value "Klara"]
       (is (isa? (type test-value) expected-type))
-      (is (=  (.get (.get (.getProperties (.next test-value)) "name")) expected-value)))))
+      (is (=  (:name (nth test-value 0)) expected-value)))))
 
 (deftest upsert-entity-test
   (testing "Integration test to upsert an entity into a datastore instance"
