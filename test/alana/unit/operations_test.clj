@@ -21,15 +21,6 @@
 (def test-key (.newKey (.setKind (.newKeyFactory test-datastore) test-kind)))
 (def integration-test-kind "User")
 
-(deftest map-to-entity-builder-test
-  (testing "Given a map, returns a new Entity object with the right properties and values"
-    (is 
-     (let [input-map {:property1 "A" :property2 "B"}
-           input-key test-key
-           test-value (map-to-entity-builder input-map input-key)
-           expected-type com.google.cloud.datastore.FullEntity$Builder]
-       (isa? (type test-value) expected-type)))))
-
 (deftest create-entity-test
   (testing "The creation of the correct entity instance type and well defined structure"
     (is

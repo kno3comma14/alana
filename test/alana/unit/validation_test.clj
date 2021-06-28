@@ -130,6 +130,6 @@
     (is
      (let [entity-map {:a "a" :b "b"}
            key "test-key"
-           test-value (validate-map-to-entity-builder-input entity-map key)
+           test-value (validate-map->entity-builder-input entity-map key)
            expected-value true]
        (= test-value expected-value)))))
