@@ -60,4 +60,4 @@
 (def DeleteEntityInput
   [:map {:closed true}
    [:datastore any?]
-   [:completed-key any?]])
+   [:completed-entity any?]])

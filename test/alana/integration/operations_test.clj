@@ -69,8 +69,8 @@
   (testing "Integration test to delete an entity from a datastore instance"
     (is
      (let [datastore test-datastore
-           completed-key (get @entity-keys 1)
-           test-value (delete-entity datastore completed-key)
+           completed-entity (get @completed-entities 1)
+           test-value (delete-entity datastore completed-entity)
            expected-type nil]
        (println (type test-value))
        (isa? (type test-value) expected-type)))))

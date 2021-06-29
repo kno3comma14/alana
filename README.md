@@ -94,6 +94,7 @@ show you how to run a query with a single property filter:
 ```
 
 On the other hand, you can run a query using a composite filter like:
+
 ```clojure
 (def input-map [{:key "property1" :value "A" :type "="}
                 {:key "property2" :value 1 :type "<"}])
@@ -101,6 +102,19 @@ On the other hand, you can run a query using a composite filter like:
 (def test-query (run-query ds input-kind input-map))
 ```
 
+
+### Removing entities
+
+To remove an entity, you can use the funcion ```delete-entity```. This function receives a datastore and a completed-entity.
+The completed-entity parameter is obtained by calling the ```upsert-entity``` or ```insert-entity```. This function can be used
+as the following example:
+
+```clojure
+...
+(delete-entity ds completed-entity)
+...
+;; Remember completed entity is the result an upsertion, insertion or lookup entity
+```
 ## Collaboration
 
 WIP

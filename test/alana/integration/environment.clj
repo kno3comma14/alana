@@ -3,6 +3,8 @@
 
 (def entity-keys (atom []))
 
+(def completed-entities (atom []))
+
 (def generated-data [{:name "Alana"  :gender "F" :first-chapter-appearance 1  :created (java.util.Date.)}
                      {:name "Marko"  :gender "M" :first-chapter-appearance 1  :created (java.util.Date.)}
                      {:name "Izabel" :gender "F" :first-chapter-appearance 2  :created (java.util.Date.)}
@@ -24,7 +26,9 @@
   "This function setup the initial environment for integration tests"
   []
   (doseq [entity entities]
-    (swap! entity-keys conj (.getKey (upsert-entity datastore entity)))))
+    (let [temp-entity (upsert-entity datastore entity)]
+      (swap! entity-keys conj (.getKey temp-entity))
+      (swap! completed-entities conj temp-entity))))
 
 (defn teardown-gcp-environment
   "This function teardown the initial environment for integration tests"

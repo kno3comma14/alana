@@ -142,10 +142,10 @@
 
 (defn delete-entity
   "Delete an entity from a datastore"
-  [datastore completed-key]
-  (if (validate-delete-entity-input datastore completed-key)
-    (.delete datastore (into-array (list completed-key)))
+  [datastore completed-entity]
+  (if (validate-delete-entity-input datastore completed-entity)
+    (.delete datastore (into-array (list (.getKey completed-entity))))
     (throw
      (ex-info "Input assertion failed."
-              {:causes (explain-delete-entity-input-failures datastore completed-key)}
-              :actual-value {:value [datastore completed-key]}))))
+              {:causes (explain-delete-entity-input-failures datastore completed-entity)}
+              :actual-value {:value [datastore completed-entity]}))))

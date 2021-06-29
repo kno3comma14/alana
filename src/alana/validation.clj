@@ -143,14 +143,14 @@
 
 (defn validate-delete-entity-input
   "Validates delete-entity function input using DeleteEntityInput schema."
-  [datastore completed-key]
+  [datastore completed-entity]
   (let [validation-map {:datastore datastore
-                        :completed-key completed-key}]
+                        :completed-entity completed-entity}]
     (validate DeleteEntityInput validation-map)))
 
 (defn explain-delete-entity-input-failures
   "Explains delete entity input failures given a DeleteEntityInput schema."
-  [datastore completed-key]
+  [datastore completed-entity]
   (let [validation-map {:datastore datastore
-                        :completed-key completed-key}]
+                        :completed-entity completed-entity}]
     (explain DeleteEntityInput validation-map)))
