@@ -72,5 +72,13 @@
            completed-entity (get @completed-entities 1)
            test-value (delete-entity datastore completed-entity)
            expected-type nil]
-       (println (type test-value))
        (isa? (type test-value) expected-type)))))
+
+(deftest lookup-entity-test
+  (testing "Integration test to lookup an entity from a datastore instance"
+    (is
+     (let [datastore test-datastore
+           completed-entity (get @completed-entities 0)
+           test-value (select-keys (lookup-entity datastore completed-entity) [:name :gender])
+           expected-value {:name "Alana" :gender "F"}]
+       (= test-value expected-value)))))

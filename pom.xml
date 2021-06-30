@@ -4,7 +4,7 @@
   <packaging>jar</packaging>
   <groupId>org.clojars.enyert</groupId>
   <artifactId>alana</artifactId>
-  <version>1.1.6-alpha</version>
+  <version>1.2.2-alpha</version>
   <name>alana</name>
   <description>Clojure support for Google Datastore.</description>
   <url>https://github.com/kno3comma14/alana</url>
@@ -19,7 +19,7 @@
     <url>https://github.com/kno3comma14/alana</url>
     <connection>scm:git:git://github.com/kno3comma14/alana.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/kno3comma14/kaocha.git</developerConnection>
-    <tag>v1.0.0-alpha</tag>
+    <tag>v1.2.2-alpha</tag>
   </scm>
   <dependencies>
     <dependency>

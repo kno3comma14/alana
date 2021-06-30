@@ -61,3 +61,8 @@
   [:map {:closed true}
    [:datastore any?]
    [:completed-entity any?]])
+
+(def LookupEntityInput
+  [:map {:closed true}
+   [:datastore any?]
+   [:completed-entity any?]])

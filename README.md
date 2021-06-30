@@ -21,7 +21,7 @@ You can add the dependencies to your projects using clojars:
 ```clojure
 ...
  :deps {org.clojure/clojure              {:mvn/version "1.10.1"}
-        org.clojars.enyert/alana         {:mvn/version "1.1.6-alpha"}}
+        org.clojars.enyert/alana         {:mvn/version "1.2.2-alpha"}}
 ...                                          
 ```
 
