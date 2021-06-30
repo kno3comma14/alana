@@ -154,3 +154,17 @@
   (let [validation-map {:datastore datastore
                         :completed-entity completed-entity}]
     (explain DeleteEntityInput validation-map)))
+
+(defn validate-lookup-entity-input 
+  "Validates lookup-entity function input using LookupEntityInput schema."
+  [datastore completed-entity]
+  (let [validation-map {:datastore datastore
+                        :completed-entity completed-entity}]
+    (validate LookupEntityInput validation-map)))
+
+(defn explain-lookup-entity-input-failures
+  "Explains lookup entity input failures given a LookupEntityInput schema."
+  [datastore completed-entity]
+  (let [validation-map {:datastore datastore
+                        :completed-entity completed-entity}]
+    (explain LookupEntityInput validation-map)))

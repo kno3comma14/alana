@@ -44,6 +44,6 @@
   (testing "Given en entity, returns a map with the expected properties and values"
     (is
      (let [input-value (create-entity test-datastore test-kind {:a "A" :b 1})
-           test-value (entity->hash-map input-value)
+           test-value (select-keys (entity->hash-map input-value) [:a :b])
            expected-value {:a "A" :b 1}]
        (= test-value expected-value)))))

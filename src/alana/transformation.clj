@@ -33,12 +33,13 @@
 (defn entity->hash-map
   "This function transforms from datastore entity object to hash-map"
   [entity-object]
-  (let [properties (keys (.getProperties entity-object))]
-    (reduce (fn [acc x] 
-              (assoc acc (keyword x) 
-                         (.get (.get (.getProperties entity-object) x)))) 
-            {} 
-            properties)))
+  (let [properties (keys (.getProperties entity-object))
+        base-map (reduce (fn [acc x] 
+                           (assoc acc (keyword x) 
+                                  (.get (.get (.getProperties entity-object) x)))) 
+                         {} 
+                         properties)]
+    (assoc base-map :internal-key (.getKey entity-object))))
 
 (defn query-result->vector
   "This function takes a query result object and transform it to vector"

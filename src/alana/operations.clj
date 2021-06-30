@@ -149,3 +149,13 @@
      (ex-info "Input assertion failed."
               {:causes (explain-delete-entity-input-failures datastore completed-entity)}
               :actual-value {:value [datastore completed-entity]}))))
+
+(defn lookup-entity
+  "This function retrieves an entity from a given datastore. A complete entity has to be passed as argument"
+  [datastore completed-entity]
+  (if (validate-lookup-entity-input datastore completed-entity)
+    (entity->hash-map (.get datastore (.getKey completed-entity)))
+    (throw
+     (ex-info "Input assertion failed."
+              {:causes (explain-lookup-entity-input-failures datastore completed-entity)}
+              :actual-value {:value [datastore completed-entity]}))))
